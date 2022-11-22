@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CruddyPizza</string>
+    <string name="Title">Cruddy Pizza</string>
+    <string name="MakeOrderEN">Make Order</string>
+    <string name="ViewOrderEN">View Orders</string>
+    <string name="ButtonEnglishEN">English</string>
+    <string name="ButtonFrenchEN">English</string>
 </resources>
