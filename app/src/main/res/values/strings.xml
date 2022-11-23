@@ -13,4 +13,24 @@
 
     <string name="ButtonFrenchEN">French</string>
     <string name="ButtonFrenchFR">Français</string>
+
+    <string name="CustInfoTitleEN">Customer Information</string>
+    <string name="CustInfoTitleFR">Informations Client</string>
+
+    <string name="CustNameEN">Name:</string>
+    <string name="CustNameFR">Nom:</string>
+
+    <string name="CustAddressEN">Address:</string>
+    <string name="CustAddressFR">Adresse:</string>
+
+    <string name="CustPhoneEN">Phone Number:</string>
+    <string name="CustPhoneFR">Numéro de Téléphone:</string>
+
+    <string name="buttonMakePizzaEN">Start Order</string>
+    <string name="buttonMakePizzaFR">Lancer la Commande</string>
+
+    <string name="buttonCancelEN">Cancel</string>
+    <string name="buttonCancelFR">Annuler</string>
+
+
 </resources>
