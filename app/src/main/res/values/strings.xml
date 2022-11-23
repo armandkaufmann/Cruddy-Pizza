@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">CruddyPizza</string>
     <string name="Title">Cruddy Pizza</string>
+
     <string name="MakeOrderEN">Make Order</string>
+    <string name="MakeOrderFR">Passer Commande</string>
+
     <string name="ViewOrderEN">View Orders</string>
+    <string name="ViewOrderFR">Voir les Commandes</string>
+
     <string name="ButtonEnglishEN">English</string>
-    <string name="ButtonFrenchEN">English</string>
+    <string name="ButtonEnglishFR">Anglais</string>
+
+    <string name="ButtonFrenchEN">French</string>
+    <string name="ButtonFrenchFR">Français</string>
 </resources>

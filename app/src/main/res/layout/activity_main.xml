@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -30,7 +31,7 @@
             android:layout_weight=".8"
             android:gravity="center|center_horizontal"
             android:text="@string/Title"
-            android:textColor="#000000"
+            android:textColor="@color/white"
             android:textSize="48sp"
             android:typeface="normal" />
 
@@ -45,14 +46,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:text="@string/MakeOrderEN" />
+                android:backgroundTint="@color/button_1"
+                android:text="@string/MakeOrderEN"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/buttonViewOrder"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:text="@string/ViewOrderEN" />
+                android:backgroundTint="@color/button_1"
+                android:text="@string/ViewOrderEN"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/button_1"
                 android:text="@string/ButtonEnglishEN" />
 
             <Button
@@ -75,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/button_1"
                 android:text="@string/ButtonFrenchEN" />
         </LinearLayout>
     </LinearLayout>
