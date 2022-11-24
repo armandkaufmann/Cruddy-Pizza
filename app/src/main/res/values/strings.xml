@@ -32,5 +32,22 @@
     <string name="buttonCancelEN">Cancel</string>
     <string name="buttonCancelFR">Annuler</string>
 
+    <string name="MakePizzaTitleEN">Make Pizza</string>
+    <string name="MakePizzaTitleFR">Faire des Pizzas</string>
+
+    <string name="MakePizzaSizeTitleEN">Pick Size</string>
+    <string name="MakePizzaSizeTitleFR">Choisir la Taille</string>
+
+    <string name="MakePizzaToppingsTitleEN">Pick Toppiongs</string>
+    <string name="MakePizzaToppingsTitleFR">Choisir les Garnitures</string>
+
+    <string name="MakePizzaSizeEN">Size:</string>
+    <string name="MakePizzaSizeFR">Taille:</string>
+
+    <string name="MakePizzaToppingsEN">Toppings:</string>
+    <string name="MakePizzaToppingsFR">Garnitures:</string>
+    <string name="AddingToppingBtn">+</string>
+    <string name="RemoveToppingBtn">-</string>
+
 
 </resources>

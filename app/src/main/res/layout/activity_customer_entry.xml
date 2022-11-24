@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewMakePizzaTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -26,16 +26,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:layout_weight="1.2"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="20dp">
 
             <TableLayout
                 android:id="@+id/tabelLayoutCustomerInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:gravity="center"
+                android:padding="10dp"
                 android:shrinkColumns="0,1">
 
                 <TableRow
@@ -51,18 +53,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:fontFamily="sans-serif-black"
                         android:text="@string/CustNameEN"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/editTextTextCustName"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="45dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/edittext_style"
                         android:ems="10"
-                        android:hint="Customer Name"
                         android:inputType="textPersonName"
                         android:padding="5dp"
                         android:textColor="@color/black" />
@@ -81,18 +84,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:fontFamily="sans-serif-black"
                         android:text="@string/CustAddressEN"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/editTextTextCustAddress"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="45dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/edittext_style"
                         android:ems="10"
-                        android:hint="Customer Address"
                         android:inputType="textPersonName"
                         android:padding="5dp"
                         android:textColor="@color/black" />
@@ -111,19 +115,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:fontFamily="sans-serif-black"
                         android:text="@string/CustPhoneEN"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/editTextTextCustPhone"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="45dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/edittext_style"
                         android:ems="10"
-                        android:hint="Customer Number"
-                        android:inputType="textPersonName"
+                        android:inputType="none|phone"
                         android:padding="5dp"
                         android:textColor="@color/black" />
                 </TableRow>

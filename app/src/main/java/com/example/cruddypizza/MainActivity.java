@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener buttonMakeOrderListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Intent i = new Intent(MainActivity.this, CustomerEntry.class);
+            i.putExtra("language", language);
+            startActivity(i);
         }
     };
 
