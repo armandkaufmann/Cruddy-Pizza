@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,12 @@ public class MakePizza extends AppCompatActivity {
     Button buttonMakePizzaPlaceOrder;
     Button buttonMakePizzaCancel;
 
-    //ingredients
+    //ingredients and sizes
     List<Ingredient> ingredientList = new ArrayList<>();
     String[] ingredientsString;
+    String[] sizesString;
+    int sizesChoice;
+    String sizeChoiceError;
 
     //pizza object
     Pizza pizza;
@@ -72,6 +76,7 @@ public class MakePizza extends AppCompatActivity {
 
         //language setup
         language = (Language) getIntent().getSerializableExtra("language");
+        loadSizes(); //loading the sizes
         setLanguage();
 
         //generating ingredients
@@ -95,6 +100,14 @@ public class MakePizza extends AppCompatActivity {
         }
     }
 
+    private void loadSizes(){
+        if (language == Language.ENGLISH){
+            sizesString = getResources().getStringArray(R.array.sizes_EN);
+        }else{
+            sizesString = getResources().getStringArray(R.array.sizes_FR);
+        }
+    }
+
     private void addIngredients(){
         for (int i = 0; i < ingredientsString.length; i++){
             ingredientList.add(new Ingredient(ingredientsString[i], i));
@@ -108,37 +121,59 @@ public class MakePizza extends AppCompatActivity {
             textViewPickSize.setText(R.string.MakePizzaSizeEN);
             textViewPickToppings.setText(R.string.MakePizzaToppingsEN);
             //buttons/ views
-            radioButtonSizeSmall.setText(R.string.MakePizzaSizeSmallEN);
-            radioButtonSizeMedium.setText(R.string.MakePizzaSizeMediumEN);
-            radioButtonSizeLarge.setText(R.string.MakePizzaSizeLargeEN);
             buttonMakePizzaPlaceOrder.setText(R.string.MakePizzaPlaceOrderEN);
             buttonMakePizzaCancel.setText(R.string.buttonCancelEN);
+            //error message
+            sizeChoiceError = getResources().getString(R.string.SizeChoiceErrorEN);
         }else{ //french
             //text views
             textViewMakePizzaTitle.setText(R.string.MakePizzaTitleFR);
             textViewPickSize.setText(R.string.MakePizzaSizeFR);
             textViewPickToppings.setText(R.string.MakePizzaToppingsFR);
             //buttons/ views
-            radioButtonSizeSmall.setText(R.string.MakePizzaSizeSmallFR);
-            radioButtonSizeMedium.setText(R.string.MakePizzaSizeMediumFR);
-            radioButtonSizeLarge.setText(R.string.MakePizzaSizeLargeFR);
             buttonMakePizzaPlaceOrder.setText(R.string.MakePizzaPlaceOrderFR);
             buttonMakePizzaCancel.setText(R.string.buttonCancelFR);
+            //error message
+            sizeChoiceError = getResources().getString(R.string.SizeChoiceErrorFR);
         }
+        radioButtonSizeSmall.setText(sizesString[0]);
+        radioButtonSizeMedium.setText(sizesString[1]);
+        radioButtonSizeLarge.setText(sizesString[2]);
     }//end setLanguage method
+
+    private boolean getSizeChoice(){
+        boolean hasSelection = false;
+        if (radioButtonSizeSmall.isChecked()){
+            sizesChoice = 0;
+            hasSelection = true;
+        }else if (radioButtonSizeMedium.isChecked()){
+            sizesChoice = 1;
+            hasSelection = true;
+        }else if (radioButtonSizeLarge.isChecked()){
+            sizesChoice = 2;
+            hasSelection = true;
+        }
+        return hasSelection;
+    }
 
     //LISTENERS ====================================================================================
     private View.OnClickListener buttonMakePizzaPlaceOrderListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //instantiating pizza object
-            pizza = new Pizza(adapter.getIngredients()); //getting ingredients list from adapter
+            if (!getSizeChoice()){ //if they didn't select a size
+                Toast.makeText(getApplicationContext(), sizeChoiceError, Toast.LENGTH_SHORT).show();
+            }else{ //if they selected a size
+                //instantiating pizza object
+//                pizza = new Pizza(adapter.getIngredients()); //getting ingredients list from adapter
+//
+//                Intent i = new Intent(MakePizza.this, orderComplete.class);
+//                i.putExtra("language", language); //language selection enum
+//                i.putExtra("customer", customer); //customer object
+//                i.putExtra("pizza", pizza); //pizza object
+//                i.putExtra("size", sizesChoice); //size int
+//                startActivity(i);
+            }
 
-//            Intent i = new Intent(MakePizza.this, orderComplete.class);
-//            i.putExtra("language", language);
-//            i.putExtra("customer", customer);
-//            i.putExtra("pizza", pizza);
-//            startActivity(i);
         }
     };
 

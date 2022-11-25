@@ -13,15 +13,6 @@ public class Pizza implements Serializable {
         setIngredientList(pIngredientList);
     }
 
-    //methods
-    public void parseIngredients(){ //removing ingredients that have a count of 0
-        for (int i = 0; i < ingredientList.size(); i++){
-            if (ingredientList.get(i).getCount() == 0){
-                ingredientList.remove(i); //remove ingredients with a count of 0
-            }
-        }
-    }
-
     //setters and getters
     public List<Ingredient> getIngredientList() {
         return ingredientList;

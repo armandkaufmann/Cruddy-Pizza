@@ -40,17 +40,19 @@
     <string name="MakePizzaSizeTitleEN">Pick a Size:</string>
     <string name="MakePizzaSizeTitleFR">Choisir la Taille:</string>
 
-    <string name="MakePizzaSizeSmallEN">Small</string>
-    <string name="MakePizzaSizeSmallFR">Petite</string>
-
-    <string name="MakePizzaSizeMediumEN">Medium</string>
-    <string name="MakePizzaSizeMediumFR">Moyenne</string>
-
-    <string name="MakePizzaSizeLargeEN">Large</string>
-    <string name="MakePizzaSizeLargeFR">Grande</string>
-
     <string name="MakePizzaSizeEN">Size:</string>
     <string name="MakePizzaSizeFR">Taille:</string>
+
+    <string-array name="sizes_EN">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="sizes_FR">
+        <item>Petite</item>
+        <item>Moyenne</item>
+        <item>Grande</item>
+    </string-array>
 
     <string name="MakePizzaToppingsEN">Pick Toppings:</string>
     <string name="MakePizzaToppingsFR">Choisir les Garnitures:</string>
@@ -63,7 +65,6 @@
         <item>Pepperoni</item>
         <item>Sausage</item>
     </string-array>
-
     <string-array name="ingredients_FR">
         <item>Champignons</item>
         <item>Lard</item>
@@ -78,5 +79,8 @@
 
     <string name="MakePizzaPlaceOrderEN">Place Order</string>
     <string name="MakePizzaPlaceOrderFR">Passer la Commande</string>
+
+    <string name="SizeChoiceErrorEN">Please pick a size</string>
+    <string name="SizeChoiceErrorFR">Veuillez choisir une taille</string>
 
 </resources>

@@ -69,24 +69,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/MakePizzaSizeSmallEN"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            tools:text="Small" />
 
                         <RadioButton
                             android:id="@+id/radioButtonSizeMedium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/MakePizzaSizeMediumEN"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            tools:text="Medium" />
 
                         <RadioButton
                             android:id="@+id/radioButtonSizeLarge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/MakePizzaSizeLargeEN"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            tools:text="Large" />
                     </RadioGroup>
 
                 </LinearLayout>
