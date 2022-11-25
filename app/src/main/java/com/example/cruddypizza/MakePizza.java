@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -50,8 +52,12 @@ public class MakePizza extends AppCompatActivity {
         radioButtonSizeSmall = findViewById(R.id.radioButtonSizeSmall);
         radioButtonSizeMedium = findViewById(R.id.radioButtonSizeMedium);
         radioButtonSizeLarge = findViewById(R.id.radioButtonSizeLarge);
+
         buttonMakePizzaPlaceOrder = findViewById(R.id.buttonMakePizzaPlaceOrder);
+        buttonMakePizzaPlaceOrder.setOnClickListener(buttonMakePizzaPlaceOrderListener);
+
         buttonMakePizzaCancel = findViewById(R.id.buttonMakePizzaCancel);
+        buttonMakePizzaCancel.setOnClickListener(buttonMakePizzaCancelListener);
 
         recylcerViewIngredients = (RecyclerView) findViewById(R.id.recylcerViewIngredients); //recycler view
 
@@ -69,6 +75,7 @@ public class MakePizza extends AppCompatActivity {
         recylcerViewIngredients.setAdapter(adapter);
     }
 
+    //METHODS ======================================================================================
     private void loadIngredients() {
         if (language == Language.ENGLISH){
             ingredientsString = getResources().getStringArray(R.array.ingredients_EN);
@@ -110,4 +117,22 @@ public class MakePizza extends AppCompatActivity {
             buttonMakePizzaCancel.setText(R.string.buttonCancelFR);
         }
     }//end setLanguage method
+
+    //LISTENERS ====================================================================================
+    private View.OnClickListener buttonMakePizzaPlaceOrderListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+//            Intent i = new Intent(CustomerEntry.this, MakePizza.class);
+//            i.putExtra("language", language);
+//            startActivity(i);
+        }
+    };
+
+    private View.OnClickListener buttonMakePizzaCancelListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(MakePizza.this, MainActivity.class);
+            startActivity(i);
+        }
+    };
 }

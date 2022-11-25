@@ -20,6 +20,7 @@
             android:id="@+id/buttonAddIngredient"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:backgroundTint="@color/button_1"
             android:fontFamily="sans-serif-black"
             android:text="+"
             android:textSize="20sp" />
@@ -41,6 +42,7 @@
             android:id="@+id/buttonRemoveIngredient"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:backgroundTint="@color/button_2"
             android:fontFamily="sans-serif-black"
             android:text="-"
             android:textSize="20sp" />
