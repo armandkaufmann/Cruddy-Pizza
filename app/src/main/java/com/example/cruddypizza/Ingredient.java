@@ -4,9 +4,11 @@ public class Ingredient {
     //member variables
     private String name;
     private int count = 0;
+    private int id;
 
-    public Ingredient(String pName){
+    public Ingredient(String pName, int pId){
         setName(pName);
+        setId(pId);
     }
 
     //methods
@@ -32,5 +34,13 @@ public class Ingredient {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

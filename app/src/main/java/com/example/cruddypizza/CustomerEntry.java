@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class CustomerEntry extends AppCompatActivity {
 
     //language
     Language language;
+
+    //customer object
+    Customer customer = new Customer();
 
 
     @Override
@@ -92,8 +96,15 @@ public class CustomerEntry extends AppCompatActivity {
     private View.OnClickListener buttonStartOrderListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //making new customer object
+            customer.setName(editTextTextCustName.getText().toString());
+            customer.setAddress(editTextTextCustAddress.getText().toString());
+            customer.setNumber(editTextTextCustPhone.getText().toString());
+
             Intent i = new Intent(CustomerEntry.this, MakePizza.class);
+
             i.putExtra("language", language);
+            i.putExtra("customer", customer);
             startActivity(i);
         }
     };

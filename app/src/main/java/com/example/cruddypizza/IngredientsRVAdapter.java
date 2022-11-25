@@ -79,5 +79,9 @@ public class IngredientsRVAdapter extends RecyclerView.Adapter<IngredientsRVAdap
         return ingredientList.size();
     }
 
+    public List<Ingredient> getIngredients(){
+        return ingredientList;
+    }
+
     //methods ======================================================================================
 }

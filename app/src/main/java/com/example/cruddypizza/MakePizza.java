@@ -31,6 +31,9 @@ public class MakePizza extends AppCompatActivity {
     List<Ingredient> ingredientList = new ArrayList<>();
     String[] ingredientsString;
 
+    //pizza object
+    Pizza pizza;
+
     //recyclerView
     RecyclerView recylcerViewIngredients; //recycler view
     IngredientsRVAdapter adapter;
@@ -38,6 +41,9 @@ public class MakePizza extends AppCompatActivity {
 
     //language
     Language language;
+
+    //customer
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,9 @@ public class MakePizza extends AppCompatActivity {
 
         recylcerViewIngredients = (RecyclerView) findViewById(R.id.recylcerViewIngredients); //recycler view
 
+        //customer info
+        customer = (Customer) getIntent().getSerializableExtra("customer");
+
         //language setup
         language = (Language) getIntent().getSerializableExtra("language");
         setLanguage();
@@ -78,17 +87,17 @@ public class MakePizza extends AppCompatActivity {
     //METHODS ======================================================================================
     private void loadIngredients() {
         if (language == Language.ENGLISH){
-            ingredientsString = getResources().getStringArray(R.array.ingredients_EN);
+            ingredientsString = getResources().getStringArray(R.array.ingredients_EN); //getting ingredients from string array in english
             maxIngredientsMessage = getResources().getString(R.string.MaxIngredientsMessageEN);
         }else{
-            ingredientsString = getResources().getStringArray(R.array.ingredients_FR);
+            ingredientsString = getResources().getStringArray(R.array.ingredients_FR); //getting ingredients from string array in french
             maxIngredientsMessage = getResources().getString(R.string.MaxIngredientsMessageFR);
         }
     }
 
     private void addIngredients(){
         for (int i = 0; i < ingredientsString.length; i++){
-            ingredientList.add(new Ingredient(ingredientsString[i]));
+            ingredientList.add(new Ingredient(ingredientsString[i], i));
         }
     }
 
@@ -122,8 +131,13 @@ public class MakePizza extends AppCompatActivity {
     private View.OnClickListener buttonMakePizzaPlaceOrderListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-//            Intent i = new Intent(CustomerEntry.this, MakePizza.class);
+            //instantiating pizza object
+            pizza = new Pizza(adapter.getIngredients()); //getting ingredients list from adapter
+
+//            Intent i = new Intent(MakePizza.this, orderComplete.class);
 //            i.putExtra("language", language);
+//            i.putExtra("customer", customer);
+//            i.putExtra("pizza", pizza);
 //            startActivity(i);
         }
     };
