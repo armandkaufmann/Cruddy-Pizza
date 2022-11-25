@@ -83,4 +83,22 @@
     <string name="SizeChoiceErrorEN">Please pick a size</string>
     <string name="SizeChoiceErrorFR">Veuillez choisir une taille</string>
 
+    <!--Activity Order placed view-->
+    <string name="orderPlacedTitleEN">Order Placed</string>
+    <string name="orderPlacedTitleFR">Commande Passée</string>
+
+    <string name="orderPlacedSizeEN">Size:</string>
+    <string name="orderPlacedSizeFR">Taille:</string>
+
+    <string name="orderPlacedToppingsEN">Toppings:</string>
+    <string name="orderPlacedToppingsFR">Garnitures:</string>
+
+    <string name="orderPlacedCustomerInfoEN">Customer Info:</string>
+    <string name="orderPlacedCustomerInfoFR">Informations Concernant le Client:</string>
+
+    <string name="orderPlacedCustomerHomeEN">Home</string>
+    <string name="orderPlacedCustomerHomeFR">Accueil</string>
+
+
+
 </resources>

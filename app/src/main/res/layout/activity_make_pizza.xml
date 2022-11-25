@@ -34,11 +34,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewPickSize"
+                    android:id="@+id/textViewOrderPlacedSize"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -108,7 +108,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewPickToppings"
+                    android:id="@+id/textViewOrderPlacedToppings"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:fontFamily="sans-serif-black"

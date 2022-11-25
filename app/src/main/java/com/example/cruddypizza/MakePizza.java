@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +36,6 @@ public class MakePizza extends AppCompatActivity {
     int sizesChoice;
     String sizeChoiceError;
 
-    //pizza object
-    Pizza pizza;
-
     //recyclerView
     RecyclerView recylcerViewIngredients; //recycler view
     IngredientsRVAdapter adapter;
@@ -56,8 +54,8 @@ public class MakePizza extends AppCompatActivity {
 
         //setting up views/textviews
         textViewMakePizzaTitle = findViewById(R.id.textViewMakePizzaTitle);
-        textViewPickSize = findViewById(R.id.textViewPickSize);
-        textViewPickToppings = findViewById(R.id.textViewPickToppings);
+        textViewPickSize = findViewById(R.id.textViewOrderPlacedSize);
+        textViewPickToppings = findViewById(R.id.textViewOrderPlacedToppings);
 
         radioButtonSizeSmall = findViewById(R.id.radioButtonSizeSmall);
         radioButtonSizeMedium = findViewById(R.id.radioButtonSizeMedium);
@@ -163,17 +161,13 @@ public class MakePizza extends AppCompatActivity {
             if (!getSizeChoice()){ //if they didn't select a size
                 Toast.makeText(getApplicationContext(), sizeChoiceError, Toast.LENGTH_SHORT).show();
             }else{ //if they selected a size
-                //instantiating pizza object
-//                pizza = new Pizza(adapter.getIngredients()); //getting ingredients list from adapter
-//
-//                Intent i = new Intent(MakePizza.this, orderComplete.class);
-//                i.putExtra("language", language); //language selection enum
-//                i.putExtra("customer", customer); //customer object
-//                i.putExtra("pizza", pizza); //pizza object
-//                i.putExtra("size", sizesChoice); //size int
-//                startActivity(i);
+                Intent i = new Intent(MakePizza.this, activity_order_placed.class);
+                i.putExtra("language", language); //language selection enum
+                i.putExtra("customer", customer); //customer object
+                i.putExtra("ingredientsList", (Serializable) adapter.getIngredients()); //array list of ingredients
+                i.putExtra("size", sizesChoice); //size int
+                startActivity(i);
             }
-
         }
     };
 

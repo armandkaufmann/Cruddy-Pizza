@@ -1,6 +1,8 @@
 package com.example.cruddypizza;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     //member variables
     private String name;
     private int count = 0;
