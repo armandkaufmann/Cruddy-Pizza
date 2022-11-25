@@ -14,6 +14,7 @@
     <string name="ButtonFrenchEN">French</string>
     <string name="ButtonFrenchFR">Français</string>
 
+    <!--Customer Information View-->
     <string name="CustInfoTitleEN">Customer Information</string>
     <string name="CustInfoTitleFR">Informations Client</string>
 
@@ -32,22 +33,50 @@
     <string name="buttonCancelEN">Cancel</string>
     <string name="buttonCancelFR">Annuler</string>
 
+    <!--MAKE PIZZA VIEW-->
     <string name="MakePizzaTitleEN">Make Pizza</string>
     <string name="MakePizzaTitleFR">Faire des Pizzas</string>
 
-    <string name="MakePizzaSizeTitleEN">Pick Size</string>
-    <string name="MakePizzaSizeTitleFR">Choisir la Taille</string>
+    <string name="MakePizzaSizeTitleEN">Pick a Size:</string>
+    <string name="MakePizzaSizeTitleFR">Choisir la Taille:</string>
 
-    <string name="MakePizzaToppingsTitleEN">Pick Toppiongs</string>
-    <string name="MakePizzaToppingsTitleFR">Choisir les Garnitures</string>
+    <string name="MakePizzaSizeSmallEN">Small</string>
+    <string name="MakePizzaSizeSmallFR">Petite</string>
+
+    <string name="MakePizzaSizeMediumEN">Medium</string>
+    <string name="MakePizzaSizeMediumFR">Moyenne</string>
+
+    <string name="MakePizzaSizeLargeEN">Large</string>
+    <string name="MakePizzaSizeLargeFR">Grande</string>
 
     <string name="MakePizzaSizeEN">Size:</string>
     <string name="MakePizzaSizeFR">Taille:</string>
 
-    <string name="MakePizzaToppingsEN">Toppings:</string>
-    <string name="MakePizzaToppingsFR">Garnitures:</string>
-    <string name="AddingToppingBtn">+</string>
-    <string name="RemoveToppingBtn">-</string>
+    <string name="MakePizzaToppingsEN">Pick Toppings:</string>
+    <string name="MakePizzaToppingsFR">Choisir les Garnitures:</string>
 
+    <string-array name="ingredients_EN">
+        <item>Mushrooms</item>
+        <item>Bacon</item>
+        <item>Onions</item>
+        <item>Extra Cheese</item>
+        <item>Pepperoni</item>
+        <item>Sausage</item>
+    </string-array>
+
+    <string-array name="ingredients_FR">
+        <item>Champignons</item>
+        <item>Lard</item>
+        <item>Oignons</item>
+        <item>Fromage Supplémentaire</item>
+        <item>Pepperoni</item>
+        <item>Saucisson</item>
+    </string-array>
+
+    <string name="MaxIngredientsMessageEN">Maximum of %1$d toppings</string>
+    <string name="MaxIngredientsMessageFR">Maximum de %1$d garnitures</string>
+
+    <string name="MakePizzaPlaceOrderEN">Place Order</string>
+    <string name="MakePizzaPlaceOrderFR">Passer la Commande</string>
 
 </resources>

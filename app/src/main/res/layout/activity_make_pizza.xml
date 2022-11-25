@@ -28,12 +28,13 @@
             android:layout_height="0dp"
             android:layout_margin="20dp"
             android:layout_weight="0.4"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp"
             app:contentPadding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -50,22 +51,44 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/MakePizzaSizeEN"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner2"
+                    <RadioGroup
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioButtonSizeSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MakePizzaSizeSmallEN"
+                            android:textColor="#000000" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonSizeMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MakePizzaSizeMediumEN"
+                            android:textColor="#000000" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonSizeLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MakePizzaSizeLargeEN"
+                            android:textColor="#000000" />
+                    </RadioGroup>
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -75,6 +98,7 @@
             android:layout_height="0dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp"
             app:contentPadding="20dp">
 
@@ -98,24 +122,36 @@
                     android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recylcerViewIngredients"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:padding="10dp" />
                 </ScrollView>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonMakePizzaPlaceOrder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:layout_weight=".3"
+            android:backgroundTint="@color/button_1"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/MakePizzaPlaceOrderEN"
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonMakePizzaCancel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:layout_weight=".3"
+            android:backgroundTint="@color/button_2"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/buttonCancelEN"
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
