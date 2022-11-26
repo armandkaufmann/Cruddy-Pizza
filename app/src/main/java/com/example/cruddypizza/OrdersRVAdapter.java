@@ -1,5 +1,6 @@
 package com.example.cruddypizza;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
 
     public List<String> customers; //accessible in the MakePizza class
     public Language language;
+    public String orderString;
 
     //constructor
-    public OrdersRVAdapter(List<String> pCustomers, Language pLanguage){
+    public OrdersRVAdapter(List<String> pCustomers, Language pLanguage, String pOrderString){
         this.customers = pCustomers;
         this.language = pLanguage;
+        this.orderString = pOrderString;
     }
 
     public OrdersRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,7 +34,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
     }
 
     public void onBindViewHolder(OrdersRVAdapter.ViewHolder holder, int position) {
-        holder.textViewOrderRowOrderNum.setText("Order #" + (position + 1));
+        holder.textViewOrderRowOrderNum.setText(orderString + (position + 1));
         holder.textViewOrderRowCustName.setText(customers.get(position));
 
         if (this.language == Language.ENGLISH){
@@ -60,7 +63,8 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
             cardViewOrder.setClickable(true);
 
             cardViewOrder.setOnClickListener((v) -> { //onclick listener for each row item in the recycler view
-                Toast.makeText(itemView.getContext(), "you clicked me", Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(OrdersRVAdapter.this, MainActivity.class);
+//                startActivity(i);
             });
 
         }

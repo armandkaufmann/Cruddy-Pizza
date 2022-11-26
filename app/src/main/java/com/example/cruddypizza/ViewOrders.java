@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class ViewOrders extends AppCompatActivity {
 
     //language
     Language language;
+    String orderString;
 
     //ingredients, sizes, customer names
     List<String> customerNames = new ArrayList<>(); //add fake data
@@ -42,6 +45,7 @@ public class ViewOrders extends AppCompatActivity {
 
         //buttons
         buttonViewOrdersBack = findViewById(R.id.buttonViewOrdersBack);
+        buttonViewOrdersBack.setOnClickListener(buttonViewOrdersBackListener);
 
         //setting language
         language = (Language) getIntent().getSerializableExtra("language");
@@ -51,19 +55,22 @@ public class ViewOrders extends AppCompatActivity {
         addTempData();
 
 
-        adapter = new OrdersRVAdapter(customerNames, language);
+        adapter = new OrdersRVAdapter(customerNames, language, orderString);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recylcerViewOrders.setLayoutManager(manager);
         recylcerViewOrders.setAdapter(adapter);
     }
 
+    //methods ======================================================================================
     private void setLanguage(){
         if (language == Language.ENGLISH){
             textViewViewOrdersTitle.setText(R.string.viewOrdersTitleEN);
             buttonViewOrdersBack.setText(R.string.viewOrdersBackEN);
+            orderString = getResources().getString(R.string.orderEN);
         }else{
             textViewViewOrdersTitle.setText(R.string.viewOrdersTitleFR);
             buttonViewOrdersBack.setText(R.string.viewOrdersBackFR);
+            orderString = getResources().getString(R.string.orderFR);
         }
     }
 
@@ -73,4 +80,13 @@ public class ViewOrders extends AppCompatActivity {
         customerNames.add("Joe");
         customerNames.add("Michael");
     }
+
+    //Listeners ====================================================================================
+    private View.OnClickListener buttonViewOrdersBackListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(ViewOrders.this, MainActivity.class);
+            startActivity(i);
+        }
+    };
 }

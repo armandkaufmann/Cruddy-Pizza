@@ -103,6 +103,9 @@
     <string name="viewOrdersTitleEN">View Orders</string>
     <string name="viewOrdersTitleFR">Coir les Commandes</string>
 
+    <string name="orderEN">Order #</string>
+    <string name="orderFR">Ordre #</string>
+
     <string name="viewOrdersBackEN">Back</string>
     <string name="viewOrdersBackFR">Retour</string>
 
