@@ -99,6 +99,16 @@
     <string name="orderPlacedCustomerHomeEN">Finish</string>
     <string name="orderPlacedCustomerHomeFR">Terminer</string>
 
+    <!--View orders-->
+    <string name="viewOrdersTitleEN">View Orders</string>
+    <string name="viewOrdersTitleFR">Coir les Commandes</string>
+
+    <string name="viewOrdersBackEN">Back</string>
+    <string name="viewOrdersBackFR">Retour</string>
+
+    <string name="viewOrdersInProgressEN">In-progress</string>
+    <string name="viewOrdersInProgressFR">En cours</string>
+
 
 
 </resources>
