@@ -87,6 +87,9 @@
     <string name="orderPlacedTitleEN">Order Placed</string>
     <string name="orderPlacedTitleFR">Commande Passée</string>
 
+    <string name="orderPlacedNoToppingsEN">No toppings</string>
+    <string name="orderPlacedNoToppingsFR">Aucune garnitures</string>
+
     <string name="orderPlacedSizeEN">Size:</string>
     <string name="orderPlacedSizeFR">Taille:</string>
 
@@ -112,6 +115,14 @@
     <string name="viewOrdersInProgressEN">In-progress</string>
     <string name="viewOrdersInProgressFR">En cours</string>
 
+    <!--Order details-->
+    <string name="orderDetailsCompleteEN">Complete</string>
+    <string name="orderDetailsCompleteFR">Complète</string>
 
+    <string name="orderDetailsEditEN">Edit</string>
+    <string name="orderDetailsEditFR">Éditer</string>
+
+    <string name="orderDetailsDeleteEN">Delete</string>
+    <string name="orderDetailsDeleteFR">Effacer</string>
 
 </resources>

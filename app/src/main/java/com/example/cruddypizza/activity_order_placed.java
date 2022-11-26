@@ -42,6 +42,7 @@ public class activity_order_placed extends AppCompatActivity {
     //string resources
     String[] ingredientsString;
     String[] sizesString;
+    String noToppingsMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class activity_order_placed extends AppCompatActivity {
             textViewOrderPlacedCustName.setText(R.string.CustNameEN);
             textViewORderPlacedCustAddress.setText(R.string.CustAddressEN);
             textViewORderPlacedCustPhone.setText(R.string.CustPhoneEN);
-
+            noToppingsMsg = getResources().getString(R.string.orderPlacedNoToppingsEN);
             //buttons
             buttonOrderPlacedHome.setText(R.string.orderPlacedCustomerHomeEN);
         }else{ //french
@@ -123,7 +124,7 @@ public class activity_order_placed extends AppCompatActivity {
             textViewOrderPlacedCustName.setText(R.string.CustNameFR);
             textViewORderPlacedCustAddress.setText(R.string.CustAddressFR);
             textViewORderPlacedCustPhone.setText(R.string.CustPhoneFR);
-
+            noToppingsMsg = getResources().getString(R.string.orderPlacedNoToppingsFR);
             //buttons
             buttonOrderPlacedHome.setText(R.string.orderPlacedCustomerHomeFR);
         }
@@ -134,13 +135,20 @@ public class activity_order_placed extends AppCompatActivity {
 
         //displaying all toppings chosen
         String toppingsOrder = "";
+        boolean orderPlaced = false;
         //outputting the toppings
         for (int i = 0; i < ingredientList.size(); i++){
             if (ingredientList.get(i).getCount() != 0){
                 toppingsOrder += ingredientsString[ingredientList.get(i).getId()] + " x " + ingredientList.get(i).getCount() + "\n";
+                orderPlaced = true;
             }
         }
-        textViewOrderPlacedIngredientsInfo.setText(toppingsOrder);
+        if (orderPlaced){
+            textViewOrderPlacedIngredientsInfo.setText(toppingsOrder);
+        }else{
+            textViewOrderPlacedIngredientsInfo.setText(noToppingsMsg);
+        }
+
 
         //displaying customer info
         textViewOrderPlaceCustNameInfo.setText(customer.getName());

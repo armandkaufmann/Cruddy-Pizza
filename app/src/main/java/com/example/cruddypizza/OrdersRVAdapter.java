@@ -63,8 +63,10 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
             cardViewOrder.setClickable(true);
 
             cardViewOrder.setOnClickListener((v) -> { //onclick listener for each row item in the recycler view
-//                Intent i = new Intent(OrdersRVAdapter.this, MainActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(itemView.getContext(), Order_Details.class);
+                i.putExtra("language", language);
+                i.putExtra("orderNum", position);
+                itemView.getContext().startActivity(i);
             });
 
         }
