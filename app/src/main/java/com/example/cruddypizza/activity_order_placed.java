@@ -2,10 +2,14 @@ package com.example.cruddypizza;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +66,7 @@ public class activity_order_placed extends AppCompatActivity {
 
         //buttons
         buttonOrderPlacedHome = findViewById(R.id.buttonOrderPlacedHome);
+        buttonOrderPlacedHome.setOnClickListener(buttonOrderPlacedHomeListener);
 
         //getting data from bundles
         language = (Language) getIntent().getSerializableExtra("language");
@@ -76,9 +81,10 @@ public class activity_order_placed extends AppCompatActivity {
         //setting the language
         setLanguage();
 
+        setCustomerOrder(); //display customer order information
     }
 
-    //methods
+    //METHODS ======================================================================================
     private void loadIngredients() {
         if (language == Language.ENGLISH){
             ingredientsString = getResources().getStringArray(R.array.ingredients_EN); //getting ingredients from string array in english
@@ -122,4 +128,32 @@ public class activity_order_placed extends AppCompatActivity {
             buttonOrderPlacedHome.setText(R.string.orderPlacedCustomerHomeFR);
         }
     }//end setLanguage method
+
+    private void setCustomerOrder(){
+        textViewOrderPlacedSizeSelection.setText(sizesString[size]); //setting the size of the pizza
+
+        //displaying all toppings chosen
+        String toppingsOrder = "";
+        //outputting the toppings
+        for (int i = 0; i < ingredientList.size(); i++){
+            if (ingredientList.get(i).getCount() != 0){
+                toppingsOrder += ingredientsString[ingredientList.get(i).getId()] + " x " + ingredientList.get(i).getCount() + "\n";
+            }
+        }
+        textViewOrderPlacedIngredientsInfo.setText(toppingsOrder);
+
+        //displaying customer info
+        textViewOrderPlaceCustNameInfo.setText(customer.getName());
+        textViewOrderPlaceCustAddressInfo.setText(customer.getAddress());
+        textViewOrderPlaceCustPhoneInfo.setText(customer.getNumber());
+    }
+
+    //LISTENERS ====================================================================================
+    private View.OnClickListener buttonOrderPlacedHomeListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(activity_order_placed.this, MainActivity.class);
+            startActivity(i);
+        }
+    };
 }
