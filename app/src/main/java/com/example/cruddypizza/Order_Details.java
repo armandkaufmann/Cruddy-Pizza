@@ -34,7 +34,7 @@ public class Order_Details extends AppCompatActivity {
     Language language;
 
     //order details
-    int orderNum;
+    int orderNum; //to hold the current number of the order in the database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class Order_Details extends AppCompatActivity {
         setLanguage();
 
         //order details
-        orderNum = (Integer) getIntent().getIntExtra("orderNum", 1);
+        orderNum = (Integer) getIntent().getIntExtra("orderNum", 1); //to hold the current number of the order in the database
 
     }
 
@@ -139,9 +139,10 @@ public class Order_Details extends AppCompatActivity {
     private View.OnClickListener buttonOrderDetailsEditListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-//            Intent i = new Intent(Order_Details.this, ViewOrders.class);
-//            i.putExtra("language", language);
-//            startActivity(i);
+            Intent i = new Intent(Order_Details.this, Edit_order.class);
+            i.putExtra("language", language);
+            i.putExtra("orderNum", orderNum);
+            startActivity(i);
         }
     };
 

@@ -125,4 +125,11 @@
     <string name="orderDetailsDeleteEN">Delete</string>
     <string name="orderDetailsDeleteFR">Effacer</string>
 
+    <!--Edit Order-->
+    <string name="editOrderTitleEN">Edit Order</string>
+    <string name="editOrderTitleFR">Modifier</string>
+
+    <string name="editOrderSaveEN">Save</string>
+    <string name="editOrderSaveFR">Enregistrer</string>
+
 </resources>
