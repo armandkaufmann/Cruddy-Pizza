@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            app:srcCompat="@drawable/ic_pizza" />
+            app:srcCompat="@drawable/pizza_icon" />
 
         <TextView
             android:id="@+id/textViewTitle"
