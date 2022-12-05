@@ -3,6 +3,7 @@ package com.example.cruddypizza;
 import java.util.ArrayList;
 
 public class Order {
+    private int orderId;
     private String customerName;
     private String customerAddress;
     private String customerPhone;
@@ -10,8 +11,9 @@ public class Order {
     private Integer size;
     private Integer progress;
 
-    public Order(String pCustomerInfo, String pToppings, String pSize, String pProgress,Integer numToppings){
+    public Order(String pOrderId, String pCustomerInfo, String pToppings, String pSize, String pProgress,Integer numToppings){
         parseCustomerInfo(pCustomerInfo);
+        setOrderId(Integer.parseInt(pOrderId));
         setSize(Integer.parseInt(pSize));
         setProgress(Integer.parseInt(pProgress));
 
@@ -83,5 +85,13 @@ public class Order {
 
     public void setProgress(Integer progress) {
         this.progress = progress;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }
