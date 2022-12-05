@@ -27,6 +27,15 @@
     <string name="CustPhoneEN">Phone Number:</string>
     <string name="CustPhoneFR">Numéro de Téléphone:</string>
 
+    <string name="CustNameErrorEN">Customer name is required</string>
+    <string name="CustNameErrorFR">Le nom du client est requis</string>
+
+    <string name="CustAddressErrorEN">Customer address is required</string>
+    <string name="CustAddressErrorFR">L\'adresse du client est obligatoire</string>
+
+    <string name="CustPhoneErrorEN">Customer phone number is required</string>
+    <string name="CustPhoneErrorFR">Le numéro de téléphone du client est requis</string>
+
     <string name="buttonMakePizzaEN">Start Order</string>
     <string name="buttonMakePizzaFR">Lancer la Commande</string>
 
