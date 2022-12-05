@@ -15,7 +15,7 @@ public class DBAdapter {
     private static final String DATABASE_TABLE = "customerOrders";
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_CREATE =
-            "create table contacts(_id integer primary key autoincrement,"
+            "create table customerOrders(_id integer primary key autoincrement,"
                     + "customer text not null,toppings text not null, size integer not null, progress integer not null);";
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -64,7 +64,7 @@ public class DBAdapter {
     }
 
     //insert a contact into the database
-    public long insertContact(String customer,String toppings, Integer size, Integer progress)
+    public long insertOrder(String customer,String toppings, Integer size, Integer progress)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_CUSTOMER, customer);
@@ -75,20 +75,20 @@ public class DBAdapter {
     }
 
     //delete a particular contact
-    public boolean deleteContact(long rowId)
+    public boolean deleteOrder(long rowId)
     {
         return db.delete(DATABASE_TABLE,KEY_ROWID + "=" + rowId,null) >0;
     }
 
     //retrieve all the contacts
-    public Cursor getAllContact()
+    public Cursor getAllOrders()
     {
         return db.query(DATABASE_TABLE,new String[]{KEY_ROWID,KEY_CUSTOMER,
                 KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,null);
     }
 
     //retrieve a single contact
-    public Cursor getContact(long rowId) throws SQLException
+    public Cursor getOrder(long rowId) throws SQLException
     {
         Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                 KEY_CUSTOMER, KEY_TOPPINGS, KEY_SIZE,KEY_PROGRESS},KEY_ROWID + "=" + rowId,null,null,null,null,null);
@@ -100,7 +100,7 @@ public class DBAdapter {
     }
 
     //updates a contact
-    public boolean updateContact(long rowId,String customer,String toppings, Integer size, Integer progress)
+    public boolean updateOrder(long rowId,String customer,String toppings, Integer size, Integer progress)
     {
         ContentValues cval = new ContentValues();
         cval.put(KEY_CUSTOMER, customer);

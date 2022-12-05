@@ -4,14 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import android.database.*;
 
 public class activity_order_placed extends AppCompatActivity {
     //textViews titles
@@ -43,6 +51,9 @@ public class activity_order_placed extends AppCompatActivity {
     String[] ingredientsString;
     String[] sizesString;
     String noToppingsMsg;
+
+    //database connection
+    DBAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +94,56 @@ public class activity_order_placed extends AppCompatActivity {
         setLanguage();
 
         setCustomerOrder(); //display customer order information
+
+        //inserting into the database
+        try{
+            String destPath = Environment.getExternalStorageDirectory().getPath() + getPackageName() + "/database/MyDB";
+            File f = new File(destPath);
+            if (!f.exists()){
+                CopyDB(getBaseContext().getAssets().open("mydb"),
+                        new FileOutputStream(destPath));
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        db = new DBAdapter(this);
+
+        //customer info
+        String customerInfo = customer.getName() + "," + customer.getAddress() + "," + customer.getNumber();
+
+        //toppings
+        String toppingsInfo = "";
+        for (int i = 0; i < ingredientList.size(); i++){
+            if (i != ingredientList.size() - 1){
+                toppingsInfo += ingredientList.get(i).getCount() + ",";
+            }else{
+                toppingsInfo += ingredientList.get(i).getCount();
+            }
+        }
+
+        //inserting => String customer,String toppings, Integer size, Integer progress
+        db.open();
+        long id = db.insertOrder(customerInfo, toppingsInfo, size, 0);
+        db.close();
     }
 
     //METHODS ======================================================================================
+    public void CopyDB(InputStream inputStream, OutputStream outputStream)
+            throws IOException{
+        //copy 1k bytes at a time
+        byte[] buffer = new byte[1024];
+        int length;
+        while((length = inputStream.read(buffer)) > 0)
+        {
+            outputStream.write(buffer,0,length);
+        }
+        inputStream.close();
+        outputStream.close();
+    }//end method CopyDB
+
     private void loadIngredients() {
         if (language == Language.ENGLISH){
             ingredientsString = getResources().getStringArray(R.array.ingredients_EN); //getting ingredients from string array in english
@@ -135,7 +193,7 @@ public class activity_order_placed extends AppCompatActivity {
 
         //displaying all toppings chosen
         String toppingsOrder = "";
-        boolean orderPlaced = false;
+        boolean orderPlaced = false; //to figure out if there were any toppings at all
         //outputting the toppings
         for (int i = 0; i < ingredientList.size(); i++){
             if (ingredientList.get(i).getCount() != 0){
