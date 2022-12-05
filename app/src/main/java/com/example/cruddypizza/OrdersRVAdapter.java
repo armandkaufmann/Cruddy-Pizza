@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Attr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHolder> {
 
-    public List<String> customers; //accessible in the MakePizza class
+    public ArrayList<Order> orders; //accessible in the MakePizza class
     public Language language;
     public String orderString;
 
     //constructor
-    public OrdersRVAdapter(List<String> pCustomers, Language pLanguage, String pOrderString){
-        this.customers = pCustomers;
+    public OrdersRVAdapter(ArrayList<Order> pOrders, Language pLanguage, String pOrderString){
+        this.orders = pOrders;
         this.language = pLanguage;
         this.orderString = pOrderString;
     }
@@ -74,12 +75,12 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return customers.size();
+        return orders.size();
     }
 
-    public List<String> getIngredients(){
-        return customers;
-    }
+//    public List<String> getIngredients(){
+//        return customers;
+//    }
 
     //methods ======================================================================================
 }

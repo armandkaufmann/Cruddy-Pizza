@@ -6,12 +6,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import android.database.*;
 
 public class ViewOrders extends AppCompatActivity {
     //textViews
@@ -30,6 +38,11 @@ public class ViewOrders extends AppCompatActivity {
 
     //ingredients, sizes, customer names
     List<String> customerNames = new ArrayList<>(); //add fake data
+    ArrayList<Order> orders = new ArrayList<>(); //array list of orders
+    Integer numToppings;
+
+    //database
+    DBAdapter db;
 
 
     @Override
@@ -51,10 +64,38 @@ public class ViewOrders extends AppCompatActivity {
         language = (Language) getIntent().getSerializableExtra("language");
         setLanguage();
 
-        //adding temp data
-        addTempData();
+        //getting the number of toppings
+        numToppings = getResources().getStringArray(R.array.ingredients_EN).length;
+
+        //getting data from DB
+        try{
+            String destPath = Environment.getExternalStorageDirectory().getPath() + getPackageName() + "/database/MyDB";
+            File f = new File(destPath);
+            if (!f.exists()){
+                CopyDB(getBaseContext().getAssets().open("mydb"),
+                        new FileOutputStream(destPath));
+            }
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        db = new DBAdapter(this);
+
+        //retrieving all rows
+        db.open();
+        Cursor c = db.getAllOrders();
+        if(c.moveToFirst()){
+            do{
+                //String customer,String toppings, Integer size, Integer progress
+                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), numToppings));
+            }while(c.moveToNext());
+        }
+        db.close();
 
 
+        //maybe put this in c.movetofirst() ??
         adapter = new OrdersRVAdapter(customerNames, language, orderString);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recylcerViewOrders.setLayoutManager(manager);
@@ -62,6 +103,19 @@ public class ViewOrders extends AppCompatActivity {
     }
 
     //methods ======================================================================================
+    public void CopyDB(InputStream inputStream, OutputStream outputStream)
+            throws IOException{
+        //copy 1k bytes at a time
+        byte[] buffer = new byte[1024];
+        int length;
+        while((length = inputStream.read(buffer)) > 0)
+        {
+            outputStream.write(buffer,0,length);
+        }
+        inputStream.close();
+        outputStream.close();
+    }//end method CopyDB
+
     private void setLanguage(){
         if (language == Language.ENGLISH){
             textViewViewOrdersTitle.setText(R.string.viewOrdersTitleEN);
