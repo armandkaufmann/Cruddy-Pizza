@@ -1,6 +1,7 @@
 package com.example.cruddypizza;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +36,29 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
     }
 
     public void onBindViewHolder(OrdersRVAdapter.ViewHolder holder, int position) {
-        holder.textViewOrderRowOrderNum.setText(orderString + (position + 1));
-        holder.textViewOrderRowCustName.setText(customers.get(position));
+        holder.textViewOrderRowOrderNum.setText(orderString + orders.get(position).getOrderId());
+        holder.textViewOrderRowCustName.setText(orders.get(position).getCustomerName());
+        holder.orderID = orders.get(position).getOrderId();
+        holder.orderDetails = orders.get(position);
 
         if (this.language == Language.ENGLISH){
-            holder.textViewOrderRowProgress.setText(R.string.viewOrdersInProgressEN);
+            if (orders.get(position).getProgress() == 0){
+                holder.textViewOrderRowProgress.setText(R.string.viewOrdersInProgressEN);
+            }else{
+                holder.textViewOrderRowProgress.setText(R.string.orderDetailsCompleteEN);
+                holder.textViewOrderRowProgress.setBackgroundResource(R.drawable.progress_badge_complete);
+            }
+
         }else{
-            holder.textViewOrderRowProgress.setText(R.string.viewOrdersInProgressFR);
+            if (orders.get(position).getProgress() == 0){
+                holder.textViewOrderRowProgress.setText(R.string.viewOrdersInProgressFR);
+                holder.textViewOrderRowProgress.setText(R.string.viewOrdersInProgressFR);
+            }else{
+                holder.textViewOrderRowProgress.setText(R.string.orderDetailsCompleteFR);
+                holder.textViewOrderRowProgress.setBackgroundResource(R.drawable.progress_badge_complete);
+            }
         }
 
-        holder.position = holder.getAdapterPosition();
 
     }
 
@@ -52,7 +66,8 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
 
         TextView textViewOrderRowOrderNum, textViewOrderRowCustName, textViewOrderRowProgress;
         CardView cardViewOrder;
-        int position;
+        Integer orderID;
+        Order orderDetails;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -66,7 +81,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.ViewHo
             cardViewOrder.setOnClickListener((v) -> { //onclick listener for each row item in the recycler view
                 Intent i = new Intent(itemView.getContext(), Order_Details.class);
                 i.putExtra("language", language);
-                i.putExtra("orderNum", position);
+                i.putExtra("orderDetails", orderDetails);
                 itemView.getContext().startActivity(i);
             });
 

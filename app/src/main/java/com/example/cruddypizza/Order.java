@@ -1,9 +1,14 @@
 package com.example.cruddypizza;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
     private int orderId;
+    //raw data
+    private String rawCustDetails;
+    private String rawToppings;
+
     private String customerName;
     private String customerAddress;
     private String customerPhone;
@@ -11,28 +16,31 @@ public class Order {
     private Integer size;
     private Integer progress;
 
-    public Order(String pOrderId, String pCustomerInfo, String pToppings, String pSize, String pProgress,Integer numToppings){
+    public Order(String pOrderId, String pCustomerInfo, String pToppings, String pSize, String pProgress){
         parseCustomerInfo(pCustomerInfo);
         setOrderId(Integer.parseInt(pOrderId));
         setSize(Integer.parseInt(pSize));
         setProgress(Integer.parseInt(pProgress));
 
-        parseToppings(pToppings, numToppings);
+        setRawCustDetails(pCustomerInfo);
+        setRawToppings(pToppings);
+
+        parseToppings(pToppings);
     }
 
-    private void parseToppings(String tempToppings, Integer numToppings){
+    public void parseToppings(String tempToppings){
+        toppings = new ArrayList<>(); //resetting in case
         String[] tempToppingList;
-        tempToppingList = tempToppings.split(",", numToppings -1);
+        tempToppingList = tempToppings.split(",");
 
         for (int i = 0; i < tempToppingList.length; i++){
             toppings.add(Integer.parseInt(tempToppingList[i]));
         }
     }
 
-    private void parseCustomerInfo(String customerInfo){
+    public void parseCustomerInfo(String customerInfo){
         String[] tempCustInfoList;
-        tempCustInfoList = customerInfo.split(",", 2);
-
+        tempCustInfoList = customerInfo.split(",");
         setCustomerName(tempCustInfoList[0]);
         setCustomerAddress(tempCustInfoList[1]);
         setCustomerPhone(tempCustInfoList[2]);
@@ -93,5 +101,21 @@ public class Order {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public String getRawCustDetails() {
+        return rawCustDetails;
+    }
+
+    public void setRawCustDetails(String rawCustDetails) {
+        this.rawCustDetails = rawCustDetails;
+    }
+
+    public String getRawToppings() {
+        return rawToppings;
+    }
+
+    public void setRawToppings(String rawToppings) {
+        this.rawToppings = rawToppings;
     }
 }

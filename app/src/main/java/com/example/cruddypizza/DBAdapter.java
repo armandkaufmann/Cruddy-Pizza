@@ -84,7 +84,7 @@ public class DBAdapter {
     public Cursor getAllOrders()
     {
         return db.query(DATABASE_TABLE,new String[]{KEY_ROWID,KEY_CUSTOMER,
-                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,null);
+                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,KEY_PROGRESS + " ASC");
     }
 
     //retrieve a single contact
@@ -100,7 +100,7 @@ public class DBAdapter {
     }
 
     //updates a contact
-    public boolean updateOrder(long rowId,String customer,String toppings, Integer size, Integer progress)
+    public boolean updateOrder(long rowId, String customer,String toppings, Integer size, Integer progress)
     {
         ContentValues cval = new ContentValues();
         cval.put(KEY_CUSTOMER, customer);

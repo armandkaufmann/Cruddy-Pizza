@@ -96,19 +96,6 @@ public class activity_order_placed extends AppCompatActivity {
         setCustomerOrder(); //display customer order information
 
         //inserting into the database
-        try{
-            String destPath = Environment.getExternalStorageDirectory().getPath() + getPackageName() + "/database/MyDB";
-            File f = new File(destPath);
-            if (!f.exists()){
-                CopyDB(getBaseContext().getAssets().open("mydb"),
-                        new FileOutputStream(destPath));
-            }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
         db = new DBAdapter(this);
 
         //customer info
@@ -131,19 +118,6 @@ public class activity_order_placed extends AppCompatActivity {
     }
 
     //METHODS ======================================================================================
-    public void CopyDB(InputStream inputStream, OutputStream outputStream)
-            throws IOException{
-        //copy 1k bytes at a time
-        byte[] buffer = new byte[1024];
-        int length;
-        while((length = inputStream.read(buffer)) > 0)
-        {
-            outputStream.write(buffer,0,length);
-        }
-        inputStream.close();
-        outputStream.close();
-    }//end method CopyDB
-
     private void loadIngredients() {
         if (language == Language.ENGLISH){
             ingredientsString = getResources().getStringArray(R.array.ingredients_EN); //getting ingredients from string array in english

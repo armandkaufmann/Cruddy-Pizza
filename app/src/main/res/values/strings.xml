@@ -106,7 +106,7 @@
     <string name="orderPlacedToppingsFR">Garnitures:</string>
 
     <string name="orderPlacedCustomerInfoEN">Customer Info:</string>
-    <string name="orderPlacedCustomerInfoFR">Informations Concernant le Client:</string>
+    <string name="orderPlacedCustomerInfoFR">Informations client:</string>
 
     <string name="orderPlacedCustomerHomeEN">Finish</string>
     <string name="orderPlacedCustomerHomeFR">Terminer</string>

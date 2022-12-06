@@ -34,7 +34,7 @@ public class Edit_order extends AppCompatActivity {
     Language language;
 
     //order details
-    int orderNum; //to hold the current number of the order in the database
+    Order orderDetails; //to hold the current number of the order in the database
 
     //ingredients and sizes
     List<Ingredient> ingredientList = new ArrayList<>();
@@ -47,6 +47,9 @@ public class Edit_order extends AppCompatActivity {
     RecyclerView recylcerViewEditOrderIngredients; //recycler view
     IngredientsRVAdapter adapter;
     String maxIngredientsMessage;
+
+    //database
+    DBAdapter db = new DBAdapter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,16 @@ public class Edit_order extends AppCompatActivity {
         recylcerViewEditOrderIngredients = findViewById(R.id.recylcerViewEditOrderIngredients);
 
         //getting order ID
-        orderNum = (Integer) getIntent().getIntExtra("orderNum", 0); //to hold the current number of the order in the database
+        orderDetails = (Order) getIntent().getSerializableExtra("orderDetails"); //to hold the current number of the order in the database
+
+        //setting the data from the order details
+        if (orderDetails.getSize() == 0){
+            radioButtonEditOrderSizeSmall.setChecked(true);
+        }else if (orderDetails.getSize() == 1){
+            radioButtonEditOrderSizeMedium.setChecked(true);
+        }else{
+            radioButtonEditOrderSizeLarge.setChecked(true);
+        }
 
         //language setup
         language = (Language) getIntent().getSerializableExtra("language");
@@ -85,7 +97,7 @@ public class Edit_order extends AppCompatActivity {
         loadIngredients();
         addIngredients(); //create ingredients objects and add to array list
 
-        adapter = new IngredientsRVAdapter(ingredientList, maxIngredientsMessage);
+        adapter = new IngredientsRVAdapter(ingredientList, maxIngredientsMessage, orderDetails);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recylcerViewEditOrderIngredients.setLayoutManager(manager);
         recylcerViewEditOrderIngredients.setAdapter(adapter);
@@ -146,9 +158,45 @@ public class Edit_order extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(Edit_order.this, Order_Details.class);
-            Toast.makeText(getApplicationContext(), "Saved changes to order #" + (orderNum + 1), Toast.LENGTH_SHORT).show();
+
+            //getting ingredients
+            List<Ingredient> toppingsOrder = adapter.getIngredients();
+            String toppingsString = "";
+
+            for (int j = 0; j < toppingsOrder.size(); j++){
+                if (j != toppingsOrder.size() - 1){
+                    toppingsString += toppingsOrder.get(j).getCount() + ",";
+                }else{
+                    toppingsString += toppingsOrder.get(j).getCount();
+                }
+            }
+
+            //getting size selection
+            int sizeSelection;
+            if (radioButtonEditOrderSizeSmall.isChecked()){
+                sizeSelection = 0;
+            }else if (radioButtonEditOrderSizeMedium.isChecked()){
+                sizeSelection = 1;
+            }else{
+                sizeSelection = 2;
+            }
+
+            //updating order details object
+            orderDetails.parseToppings(toppingsString);
+            orderDetails.setSize(sizeSelection);
+
+            //updating in DB
+            db.open();
+            if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), toppingsString, sizeSelection, orderDetails.getProgress())){
+                Toast.makeText(getApplicationContext(), "Saved changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Could not save changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+            }
+            db.close();
+
+            //starting new activity
             i.putExtra("language", language);
-            i.putExtra("orderNum", orderNum);
+            i.putExtra("orderDetails", orderDetails);
             startActivity(i);
         }
     };
@@ -158,7 +206,7 @@ public class Edit_order extends AppCompatActivity {
         public void onClick(View view) {
             Intent i = new Intent(Edit_order.this, Order_Details.class);
             i.putExtra("language", language);
-            i.putExtra("orderNum", orderNum);
+            i.putExtra("orderDetails", orderDetails);
             startActivity(i);
         }
     };

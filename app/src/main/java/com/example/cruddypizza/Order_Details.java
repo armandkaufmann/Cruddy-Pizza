@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Order_Details extends AppCompatActivity {
     //textviews
     TextView textViewOrderDetailsTitle;
@@ -34,7 +36,14 @@ public class Order_Details extends AppCompatActivity {
     Language language;
 
     //order details
-    int orderNum; //to hold the current number of the order in the database
+    Order orderDetails; //to hold the current number of the order in the database
+
+    //database
+    DBAdapter db = new DBAdapter(this);
+
+    //string arrays ingredients, sizes
+    String[] ingredientsString;
+    String[] sizesString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +87,29 @@ public class Order_Details extends AppCompatActivity {
         setLanguage();
 
         //order details
-        orderNum = (Integer) getIntent().getIntExtra("orderNum", 1); //to hold the current number of the order in the database
+        orderDetails = (Order) getIntent().getSerializableExtra("orderDetails");
 
+        //disabling complete button if already complete
+        if (orderDetails.getProgress() == 1){
+            buttonOrderDetailsComplete.setEnabled(false);
+            buttonOrderDetailsEdit.setEnabled(false);
+        }
+
+        //setting the text based on the customer's order
+        textViewOrderDetailsSizeSelection.setText(sizesString[orderDetails.getSize()]); //size selection
+
+        String orderToppings = "";
+        ArrayList<Integer> toppingSelection = orderDetails.getToppings();
+        for (int i = 0; i < toppingSelection.size(); i++){ //iterating through the toppings selection
+            if (toppingSelection.get(i) != 0){
+                orderToppings += ingredientsString[i] + " x " + toppingSelection.get(i) + "\n";
+            }
+        }
+
+        textViewOrderDetailsIngredientsInfo.setText(orderToppings); //setting the toppings selection
+        textViewOrderDetailsCustNameInfo.setText(orderDetails.getCustomerName());
+        textViewOrderDetailsCustAddressInfo.setText(orderDetails.getCustomerAddress());
+        textViewOrderDetailsCustPhoneInfo.setText(orderDetails.getCustomerPhone());
     }
 
     //METHODS ======================================================================================
@@ -99,6 +129,12 @@ public class Order_Details extends AppCompatActivity {
             buttonOrderDetailsBack.setText(R.string.viewOrdersBackEN);
             buttonOrderDetailsEdit.setText(R.string.orderDetailsEditEN);
             buttonOrderDetailsDelete.setText(R.string.orderDetailsDeleteEN);
+
+            //ingredients array
+            ingredientsString = getResources().getStringArray(R.array.ingredients_EN); //getting ingredients from string array in english
+
+            //sizes array
+            sizesString = getResources().getStringArray(R.array.sizes_EN);
         }else{
             textViewOrderDetailsTitle.setText(R.string.orderFR);
             textViewOrderDetailsSize.setText(R.string.orderPlacedSizeFR);
@@ -113,6 +149,12 @@ public class Order_Details extends AppCompatActivity {
             buttonOrderDetailsBack.setText(R.string.viewOrdersBackFR);
             buttonOrderDetailsEdit.setText(R.string.orderDetailsEditFR);
             buttonOrderDetailsDelete.setText(R.string.orderDetailsDeleteFR);
+
+            //ingredients array
+            ingredientsString = getResources().getStringArray(R.array.ingredients_FR); //getting ingredients from string array in french
+
+            //sizes array
+            sizesString = getResources().getStringArray(R.array.sizes_FR);
         }
     }
 
@@ -121,7 +163,17 @@ public class Order_Details extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(Order_Details.this, ViewOrders.class);
-            Toast.makeText(getApplicationContext(), "Order #" + (orderNum + 1) + " completed.", Toast.LENGTH_SHORT).show();
+
+            //long rowId, String customer,String toppings, Integer size, Integer progress
+
+            db.open();
+            if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), orderDetails.getRawToppings(), orderDetails.getSize(), 1)){
+                Toast.makeText(getApplicationContext(), "Order #" + (orderDetails.getOrderId()) + " completed.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Could not complete Order #" + orderDetails.getOrderId(), Toast.LENGTH_SHORT).show();
+            }
+
+
             i.putExtra("language", language);
             startActivity(i);
         }
@@ -141,7 +193,7 @@ public class Order_Details extends AppCompatActivity {
         public void onClick(View view) {
             Intent i = new Intent(Order_Details.this, Edit_order.class);
             i.putExtra("language", language);
-            i.putExtra("orderNum", orderNum);
+            i.putExtra("orderDetails", orderDetails);
             startActivity(i);
         }
     };
@@ -150,7 +202,16 @@ public class Order_Details extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(Order_Details.this, ViewOrders.class);
-            Toast.makeText(getApplicationContext(), "Order #" + (orderNum + 1) + " deleted.", Toast.LENGTH_SHORT).show();
+
+            //deleting from DB
+            db.open();
+            if (db.deleteOrder(orderDetails.getOrderId())){
+                Toast.makeText(getApplicationContext(), "Order #" + (orderDetails.getOrderId()) + " deleted.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Failed to delete Order #" + orderDetails.getOrderId(), Toast.LENGTH_SHORT).show();
+            }
+            db.close();
+
             i.putExtra("language", language);
             startActivity(i);
         }

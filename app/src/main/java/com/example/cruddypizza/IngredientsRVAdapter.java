@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientsRVAdapter extends RecyclerView.Adapter<IngredientsRVAdapter.ViewHolder> {
@@ -18,10 +19,25 @@ public class IngredientsRVAdapter extends RecyclerView.Adapter<IngredientsRVAdap
     public String maxIngredientsMsg;
     public final int MAX_INGREDIENTS = 3; //max number of ingredients
 
+    Order orderDetails = null;
+
     //constructor
     public  IngredientsRVAdapter(List<Ingredient> pIngredients, String message){
         this.ingredientList = pIngredients;
         this.maxIngredientsMsg = message;
+    }
+
+    public  IngredientsRVAdapter(List<Ingredient> pIngredients, String message, Order pOrderDetails){
+        this.ingredientList = pIngredients;
+        this.maxIngredientsMsg = message;
+
+        orderDetails = pOrderDetails;
+        ArrayList<Integer> userSelectionToppings = orderDetails.getToppings();
+
+        for (int i = 0; i < userSelectionToppings.size(); i++){
+            this.ingredientList.get(i).setCount(userSelectionToppings.get(i));
+            this.ingredientsCount += userSelectionToppings.get(i);
+        }
     }
 
     public IngredientsRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

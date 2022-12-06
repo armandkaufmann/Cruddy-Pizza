@@ -6,19 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
+
 import android.database.*;
 
 public class ViewOrders extends AppCompatActivity {
@@ -36,8 +29,7 @@ public class ViewOrders extends AppCompatActivity {
     Language language;
     String orderString;
 
-    //ingredients, sizes, customer names
-    List<String> customerNames = new ArrayList<>(); //add fake data
+    //orders for recycler view
     ArrayList<Order> orders = new ArrayList<>(); //array list of orders
     Integer numToppings;
 
@@ -68,19 +60,6 @@ public class ViewOrders extends AppCompatActivity {
         numToppings = getResources().getStringArray(R.array.ingredients_EN).length;
 
         //getting data from DB
-        try{
-            String destPath = Environment.getExternalStorageDirectory().getPath() + getPackageName() + "/database/MyDB";
-            File f = new File(destPath);
-            if (!f.exists()){
-                CopyDB(getBaseContext().getAssets().open("mydb"),
-                        new FileOutputStream(destPath));
-            }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
         db = new DBAdapter(this);
 
         //retrieving all rows
@@ -89,32 +68,19 @@ public class ViewOrders extends AppCompatActivity {
         if(c.moveToFirst()){
             do{
                 //orderid, String customer,String toppings, Integer size, Integer progress
-                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), numToppings));
+                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4)));
             }while(c.moveToNext());
         }
         db.close();
 
-
-        //maybe put this in c.movetofirst() ??
-        adapter = new OrdersRVAdapter(customerNames, language, orderString);
+        adapter = new OrdersRVAdapter(orders, language, orderString);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recylcerViewOrders.setLayoutManager(manager);
         recylcerViewOrders.setAdapter(adapter);
     }
 
     //methods ======================================================================================
-    public void CopyDB(InputStream inputStream, OutputStream outputStream)
-            throws IOException{
-        //copy 1k bytes at a time
-        byte[] buffer = new byte[1024];
-        int length;
-        while((length = inputStream.read(buffer)) > 0)
-        {
-            outputStream.write(buffer,0,length);
-        }
-        inputStream.close();
-        outputStream.close();
-    }//end method CopyDB
+
 
     private void setLanguage(){
         if (language == Language.ENGLISH){
@@ -126,13 +92,6 @@ public class ViewOrders extends AppCompatActivity {
             buttonViewOrdersBack.setText(R.string.viewOrdersBackFR);
             orderString = getResources().getString(R.string.orderFR);
         }
-    }
-
-    private void addTempData(){
-        customerNames.add("Armand");
-        customerNames.add("Bob");
-        customerNames.add("Joe");
-        customerNames.add("Michael");
     }
 
     //Listeners ====================================================================================
