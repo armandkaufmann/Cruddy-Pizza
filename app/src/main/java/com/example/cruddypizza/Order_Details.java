@@ -82,12 +82,12 @@ public class Order_Details extends AppCompatActivity {
         buttonOrderDetailsDelete = findViewById(R.id.buttonOrderDetailsDelete);
         buttonOrderDetailsDelete.setOnClickListener(buttonOrderDetailsDeleteListener);
 
+        //order details
+        orderDetails = (Order) getIntent().getSerializableExtra("orderDetails");
+
         //language
         language = (Language) getIntent().getSerializableExtra("language");
         setLanguage();
-
-        //order details
-        orderDetails = (Order) getIntent().getSerializableExtra("orderDetails");
 
         //disabling complete button if already complete
         if (orderDetails.getProgress() == 1){
@@ -116,7 +116,7 @@ public class Order_Details extends AppCompatActivity {
     public void setLanguage(){
         if (language == Language.ENGLISH){
             //text views
-            textViewOrderDetailsTitle.setText(R.string.orderEN);
+            textViewOrderDetailsTitle.setText(getResources().getString(R.string.orderEN) + orderDetails.getOrderId());
             textViewOrderDetailsSize.setText(R.string.orderPlacedSizeEN);
             textViewOrderDetailsToppings.setText(R.string.orderPlacedToppingsEN);
             textViewOrderDetailsCustInfo.setText(R.string.orderPlacedCustomerInfoEN);
@@ -136,7 +136,7 @@ public class Order_Details extends AppCompatActivity {
             //sizes array
             sizesString = getResources().getStringArray(R.array.sizes_EN);
         }else{
-            textViewOrderDetailsTitle.setText(R.string.orderFR);
+            textViewOrderDetailsTitle.setText(getResources().getString(R.string.orderFR) + orderDetails.getOrderId());
             textViewOrderDetailsSize.setText(R.string.orderPlacedSizeFR);
             textViewOrderDetailsToppings.setText(R.string.orderPlacedToppingsFR);
             textViewOrderDetailsCustInfo.setText(R.string.orderPlacedCustomerInfoFR);

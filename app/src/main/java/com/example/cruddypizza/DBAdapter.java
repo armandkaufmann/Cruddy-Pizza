@@ -84,7 +84,7 @@ public class DBAdapter {
     public Cursor getAllOrders()
     {
         return db.query(DATABASE_TABLE,new String[]{KEY_ROWID,KEY_CUSTOMER,
-                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,KEY_PROGRESS + " ASC");
+                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,KEY_PROGRESS + " ASC, " + KEY_ROWID + " DESC;");
     }
 
     //retrieve a single contact
