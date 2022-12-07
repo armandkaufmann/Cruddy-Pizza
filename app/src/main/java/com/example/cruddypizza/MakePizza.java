@@ -35,6 +35,7 @@ public class MakePizza extends AppCompatActivity {
     String[] sizesString;
     int sizesChoice;
     String sizeChoiceError;
+    String toppingsChoiceError;
 
     //recyclerView
     RecyclerView recylcerViewIngredients; //recycler view
@@ -123,6 +124,7 @@ public class MakePizza extends AppCompatActivity {
             buttonMakePizzaCancel.setText(R.string.buttonCancelEN);
             //error message
             sizeChoiceError = getResources().getString(R.string.SizeChoiceErrorEN);
+            toppingsChoiceError = getResources().getString(R.string.ToppingChoiceErrorEN);
         }else{ //french
             //text views
             textViewMakePizzaTitle.setText(R.string.MakePizzaTitleFR);
@@ -133,6 +135,7 @@ public class MakePizza extends AppCompatActivity {
             buttonMakePizzaCancel.setText(R.string.buttonCancelFR);
             //error message
             sizeChoiceError = getResources().getString(R.string.SizeChoiceErrorFR);
+            toppingsChoiceError = getResources().getString(R.string.ToppingChoiceErrorFR);
         }
         radioButtonSizeSmall.setText(sizesString[0]);
         radioButtonSizeMedium.setText(sizesString[1]);
@@ -160,7 +163,9 @@ public class MakePizza extends AppCompatActivity {
         public void onClick(View view) {
             if (!getSizeChoice()){ //if they didn't select a size
                 Toast.makeText(getApplicationContext(), sizeChoiceError, Toast.LENGTH_SHORT).show();
-            }else{ //if they selected a size
+            }else if(adapter.ingredientsCount == 0){
+                Toast.makeText(getApplicationContext(), toppingsChoiceError, Toast.LENGTH_SHORT).show();
+            } else{ //if they selected a size
                 Intent i = new Intent(MakePizza.this, activity_order_placed.class);
                 i.putExtra("language", language); //language selection enum
                 i.putExtra("customer", customer); //customer object

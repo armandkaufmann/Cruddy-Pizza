@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Order_Details extends AppCompatActivity {
     //textviews
     TextView textViewOrderDetailsTitle;
+    TextView textViewOrderDateTime;
     TextView textViewOrderDetailsSize;
     TextView textViewOrderDetailsSizeSelection;
     TextView textViewOrderDetailsToppings;
@@ -52,6 +53,7 @@ public class Order_Details extends AppCompatActivity {
 
         //text views
         textViewOrderDetailsTitle = findViewById(R.id.textViewOrderDetailsTitle);
+        textViewOrderDateTime = findViewById(R.id.textViewOrderDateTime);
 
         textViewOrderDetailsSize = findViewById(R.id.textViewOrderDetailsSize);
         textViewOrderDetailsSizeSelection = findViewById(R.id.textViewOrderDetailsSizeSelection);
@@ -84,6 +86,9 @@ public class Order_Details extends AppCompatActivity {
 
         //order details
         orderDetails = (Order) getIntent().getSerializableExtra("orderDetails");
+
+        //setting date
+        textViewOrderDateTime.setText(orderDetails.getDate());
 
         //language
         language = (Language) getIntent().getSerializableExtra("language");

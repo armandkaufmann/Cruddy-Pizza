@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import android.database.*;
 
@@ -111,9 +113,14 @@ public class activity_order_placed extends AppCompatActivity {
             }
         }
 
+        //getting the current date and time
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        String date = dateFormat.format(calendar.getTime());
+
         //inserting => String customer,String toppings, Integer size, Integer progress
         db.open();
-        long id = db.insertOrder(customerInfo, toppingsInfo, size, 0);
+        long id = db.insertOrder(customerInfo, toppingsInfo, size, 0, date);
         db.close();
     }
 

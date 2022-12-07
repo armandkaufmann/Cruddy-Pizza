@@ -42,6 +42,7 @@ public class Edit_order extends AppCompatActivity {
     String[] sizesString;
     int sizesChoice;
     String sizeChoiceError;
+    String toppingsChoiceError;
 
     //recyclerView
     RecyclerView recylcerViewEditOrderIngredients; //recycler view
@@ -138,6 +139,9 @@ public class Edit_order extends AppCompatActivity {
             //buttons
             buttonEditOrderSaveChanges.setText(R.string.editOrderSaveEN);
             buttonEditOrderCancel.setText(R.string.buttonCancelEN);
+
+            //error
+            toppingsChoiceError = getResources().getString(R.string.ToppingChoiceErrorEN);
         }else{
             //text views
             textViewEditOrderTitle.setText(R.string.editOrderTitleFR);
@@ -147,6 +151,9 @@ public class Edit_order extends AppCompatActivity {
             //buttons
             buttonEditOrderSaveChanges.setText(R.string.editOrderSaveFR);
             buttonEditOrderCancel.setText(R.string.buttonCancelFR);
+
+            //error
+            toppingsChoiceError = getResources().getString(R.string.ToppingChoiceErrorFR);
         }
         radioButtonEditOrderSizeSmall.setText(sizesString[0]);
         radioButtonEditOrderSizeMedium.setText(sizesString[1]);
@@ -159,45 +166,50 @@ public class Edit_order extends AppCompatActivity {
         public void onClick(View view) {
             Intent i = new Intent(Edit_order.this, Order_Details.class);
 
-            //getting ingredients
-            List<Ingredient> toppingsOrder = adapter.getIngredients();
-            String toppingsString = "";
+            //validating toppings
+            if (adapter.ingredientsCount == 0){
+                Toast.makeText(getApplicationContext(), toppingsChoiceError, Toast.LENGTH_SHORT).show();
+            }else{
+                //getting ingredients
+                List<Ingredient> toppingsOrder = adapter.getIngredients();
+                String toppingsString = "";
 
-            for (int j = 0; j < toppingsOrder.size(); j++){
-                if (j != toppingsOrder.size() - 1){
-                    toppingsString += toppingsOrder.get(j).getCount() + ",";
-                }else{
-                    toppingsString += toppingsOrder.get(j).getCount();
+                for (int j = 0; j < toppingsOrder.size(); j++){
+                    if (j != toppingsOrder.size() - 1){
+                        toppingsString += toppingsOrder.get(j).getCount() + ",";
+                    }else{
+                        toppingsString += toppingsOrder.get(j).getCount();
+                    }
                 }
+
+                //getting size selection
+                int sizeSelection;
+                if (radioButtonEditOrderSizeSmall.isChecked()){
+                    sizeSelection = 0;
+                }else if (radioButtonEditOrderSizeMedium.isChecked()){
+                    sizeSelection = 1;
+                }else{
+                    sizeSelection = 2;
+                }
+
+                //updating order details object
+                orderDetails.parseToppings(toppingsString);
+                orderDetails.setSize(sizeSelection);
+
+                //updating in DB
+                db.open();
+                if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), toppingsString, sizeSelection, orderDetails.getProgress())){
+                    Toast.makeText(getApplicationContext(), "Saved changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Could not save changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+                }
+                db.close();
+
+                //starting new activity
+                i.putExtra("language", language);
+                i.putExtra("orderDetails", orderDetails);
+                startActivity(i);
             }
-
-            //getting size selection
-            int sizeSelection;
-            if (radioButtonEditOrderSizeSmall.isChecked()){
-                sizeSelection = 0;
-            }else if (radioButtonEditOrderSizeMedium.isChecked()){
-                sizeSelection = 1;
-            }else{
-                sizeSelection = 2;
-            }
-
-            //updating order details object
-            orderDetails.parseToppings(toppingsString);
-            orderDetails.setSize(sizeSelection);
-
-            //updating in DB
-            db.open();
-            if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), toppingsString, sizeSelection, orderDetails.getProgress())){
-                Toast.makeText(getApplicationContext(), "Saved changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Could not save changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
-            }
-            db.close();
-
-            //starting new activity
-            i.putExtra("language", language);
-            i.putExtra("orderDetails", orderDetails);
-            startActivity(i);
         }
     };
 

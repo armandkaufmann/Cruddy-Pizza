@@ -92,6 +92,9 @@
     <string name="SizeChoiceErrorEN">Please pick a size</string>
     <string name="SizeChoiceErrorFR">Veuillez choisir une taille</string>
 
+    <string name="ToppingChoiceErrorEN">Please choose at least one topping</string>
+    <string name="ToppingChoiceErrorFR">Veuillez choisir au moins une garniture</string>
+
     <!--Activity Order placed view-->
     <string name="orderPlacedTitleEN">Order Placed</string>
     <string name="orderPlacedTitleFR">Commande Passée</string>

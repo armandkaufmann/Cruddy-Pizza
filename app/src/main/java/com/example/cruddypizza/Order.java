@@ -15,12 +15,14 @@ public class Order implements Serializable {
     private ArrayList<Integer> toppings = new ArrayList<>();
     private Integer size;
     private Integer progress;
+    private String date;
 
-    public Order(String pOrderId, String pCustomerInfo, String pToppings, String pSize, String pProgress){
+    public Order(String pOrderId, String pCustomerInfo, String pToppings, String pSize, String pProgress, String pDate){
         parseCustomerInfo(pCustomerInfo);
         setOrderId(Integer.parseInt(pOrderId));
         setSize(Integer.parseInt(pSize));
         setProgress(Integer.parseInt(pProgress));
+        setDate(pDate);
 
         setRawCustDetails(pCustomerInfo);
         setRawToppings(pToppings);
@@ -117,5 +119,13 @@ public class Order implements Serializable {
 
     public void setRawToppings(String rawToppings) {
         this.rawToppings = rawToppings;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

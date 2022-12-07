@@ -10,13 +10,14 @@ public class DBAdapter {
     public static final String KEY_TOPPINGS = "toppings";
     public static final String KEY_SIZE = "size";
     public static final String KEY_PROGRESS = "progress";
+    public static final String KEY_DATETIME = "datetime";
     public static final String TAG = "DBAdapter";
     private static final String DATABASE_NAME = "CruddyPizzaDB";
     private static final String DATABASE_TABLE = "customerOrders";
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_CREATE =
             "create table customerOrders(_id integer primary key autoincrement,"
-                    + "customer text not null,toppings text not null, size integer not null, progress integer not null);";
+                    + "customer text not null,toppings text not null, size integer not null, progress integer not null, datetime text not null);";
     private final Context context;
     private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
@@ -64,13 +65,14 @@ public class DBAdapter {
     }
 
     //insert a contact into the database
-    public long insertOrder(String customer,String toppings, Integer size, Integer progress)
+    public long insertOrder(String customer,String toppings, Integer size, Integer progress, String datetime)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_CUSTOMER, customer);
         initialValues.put(KEY_TOPPINGS, toppings);
         initialValues.put(KEY_SIZE, size);
         initialValues.put(KEY_PROGRESS, progress);
+        initialValues.put(KEY_DATETIME, datetime);
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
@@ -84,14 +86,14 @@ public class DBAdapter {
     public Cursor getAllOrders()
     {
         return db.query(DATABASE_TABLE,new String[]{KEY_ROWID,KEY_CUSTOMER,
-                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS},null,null,null,null,KEY_PROGRESS + " ASC, " + KEY_ROWID + " DESC;");
+                KEY_TOPPINGS, KEY_SIZE, KEY_PROGRESS, KEY_DATETIME},null,null,null,null,KEY_PROGRESS + " ASC, " + KEY_ROWID + " DESC;");
     }
 
     //retrieve a single contact
     public Cursor getOrder(long rowId) throws SQLException
     {
         Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                KEY_CUSTOMER, KEY_TOPPINGS, KEY_SIZE,KEY_PROGRESS},KEY_ROWID + "=" + rowId,null,null,null,null,null);
+                KEY_CUSTOMER, KEY_TOPPINGS, KEY_SIZE,KEY_PROGRESS, KEY_DATETIME},KEY_ROWID + "=" + rowId,null,null,null,null,null);
         if(mCursor != null)
         {
             mCursor.moveToFirst();

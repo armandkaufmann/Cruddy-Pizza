@@ -68,7 +68,7 @@ public class ViewOrders extends AppCompatActivity {
         if(c.moveToFirst()){
             do{
                 //orderid, String customer,String toppings, Integer size, Integer progress
-                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4)));
+                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5)));
             }while(c.moveToNext());
         }
         db.close();
