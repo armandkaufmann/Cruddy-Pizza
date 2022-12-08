@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -60,18 +62,24 @@ public class ViewOrders extends AppCompatActivity {
         numToppings = getResources().getStringArray(R.array.ingredients_EN).length;
 
         //getting data from DB
-        db = new DBAdapter(this);
-
-        //retrieving all rows
-        db.open();
-        Cursor c = db.getAllOrders();
-        if(c.moveToFirst()){
-            do{
-                //orderid, String customer,String toppings, Integer size, Integer progress
-                orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5)));
-            }while(c.moveToNext());
+        try{
+            db = new DBAdapter(this); //initializing db
+            //retrieving all rows
+            db.open();
+            Cursor c = db.getAllOrders();
+            if(c.moveToFirst()){
+                do{
+                    //orderid, String customer,String toppings, Integer size, Integer progress
+                    orders.add(new Order(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5)));
+                }while(c.moveToNext());
+            }
+            db.close();
+        }catch (SQLiteException e){
+            Log.w("VIEWORDERS", "Database Error: " + e.toString());
         }
-        db.close();
+        catch (Exception e){
+            Log.w("VIEWORDERS", "Error: " + e.toString());
+        }
 
         adapter = new OrdersRVAdapter(orders, language, orderString);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
@@ -80,8 +88,6 @@ public class ViewOrders extends AppCompatActivity {
     }
 
     //methods ======================================================================================
-
-
     private void setLanguage(){
         if (language == Language.ENGLISH){
             textViewViewOrdersTitle.setText(R.string.viewOrdersTitleEN);

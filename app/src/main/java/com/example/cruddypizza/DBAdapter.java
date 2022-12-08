@@ -38,15 +38,19 @@ public class DBAdapter {
         {
             try{
                 db.execSQL(DATABASE_CREATE);
-            }catch(SQLException e){
-                e.printStackTrace();
+            } catch (SQLiteException e){
+                Log.w(TAG, "Database Error: " + e.toString());
+            } catch(Exception e){
+                Log.w(TAG, "Error: " + e.toString());
             }
+
         }//end method onCreate
+
         public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion)
         {
             Log.w(TAG,"Upgrade database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS contacts");
+            db.execSQL("DROP TABLE IF EXISTS customerOrders");
             onCreate(db);
         }//end method onUpgrade
     }

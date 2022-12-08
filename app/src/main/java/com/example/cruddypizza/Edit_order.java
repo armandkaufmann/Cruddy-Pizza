@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -50,7 +52,7 @@ public class Edit_order extends AppCompatActivity {
     String maxIngredientsMessage;
 
     //database
-    DBAdapter db = new DBAdapter(this);
+    DBAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,17 @@ public class Edit_order extends AppCompatActivity {
         }else{
             radioButtonEditOrderSizeLarge.setChecked(true);
         }
+
+        //DB connection
+        try{
+            db = new DBAdapter(this); //initializing db
+        }catch (SQLiteException e){
+            Log.w("EDIT_ORDER", "Database Error: " + e.toString());
+        }
+        catch (Exception e){
+            Log.w("EDIT_ORDER", "Error: " + e.toString());
+        }
+
 
         //language setup
         language = (Language) getIntent().getSerializableExtra("language");
@@ -197,13 +210,21 @@ public class Edit_order extends AppCompatActivity {
                 orderDetails.setSize(sizeSelection);
 
                 //updating in DB
-                db.open();
-                if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), toppingsString, sizeSelection, orderDetails.getProgress())){
-                    Toast.makeText(getApplicationContext(), "Saved changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Could not save changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+                try{
+                    db.open();
+                    if (db.updateOrder(orderDetails.getOrderId(), orderDetails.getRawCustDetails(), toppingsString, sizeSelection, orderDetails.getProgress())){
+                        Toast.makeText(getApplicationContext(), "Saved changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Could not save changes to Order #" + (orderDetails.getOrderId()), Toast.LENGTH_SHORT).show();
+                    }
+                    db.close();
+                }catch (SQLiteException e){
+                    Log.w("EDIT_ORDER", "Database Error: " + e.toString());
                 }
-                db.close();
+                catch (Exception e){
+                    Log.w("EDIT_ORDER", "Error: " + e.toString());
+                }
+
 
                 //starting new activity
                 i.putExtra("language", language);

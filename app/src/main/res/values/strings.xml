@@ -124,7 +124,7 @@
     <string name="viewOrdersBackEN">Back</string>
     <string name="viewOrdersBackFR">Retour</string>
 
-    <string name="viewOrdersInProgressEN">In-progress</string>
+    <string name="viewOrdersInProgressEN">In progress</string>
     <string name="viewOrdersInProgressFR">En cours</string>
 
     <!--Order details-->

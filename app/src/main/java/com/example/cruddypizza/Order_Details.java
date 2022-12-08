@@ -3,7 +3,9 @@ package com.example.cruddypizza;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,7 +42,7 @@ public class Order_Details extends AppCompatActivity {
     Order orderDetails; //to hold the current number of the order in the database
 
     //database
-    DBAdapter db = new DBAdapter(this);
+    DBAdapter db;
 
     //string arrays ingredients, sizes
     String[] ingredientsString;
@@ -94,7 +96,16 @@ public class Order_Details extends AppCompatActivity {
         language = (Language) getIntent().getSerializableExtra("language");
         setLanguage();
 
-        //disabling complete button if already complete
+        try{
+            db = new DBAdapter(this); //initializing db
+        }catch (SQLiteException e){
+            Log.w("EDIT_ORDER", "Database Error: " + e.toString());
+        }
+        catch (Exception e) {
+            Log.w("EDIT_ORDER", "Error: " + e.toString());
+        }
+
+            //disabling complete button if already complete
         if (orderDetails.getProgress() == 1){
             buttonOrderDetailsComplete.setEnabled(false);
             buttonOrderDetailsEdit.setEnabled(false);

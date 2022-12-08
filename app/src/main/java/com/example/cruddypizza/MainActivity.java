@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -60,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }catch (FileNotFoundException e){
             e.printStackTrace();
+            Log.w("MAINACTIVITY", "File Not Found Exception: " + e.toString());
         }catch (IOException e){
             e.printStackTrace();
+            Log.w("MAINACTIVITY", "IO Exception: " + e.toString());
         }
     }//end onCreate method
 

@@ -3,8 +3,10 @@ package com.example.cruddypizza;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -97,9 +99,6 @@ public class activity_order_placed extends AppCompatActivity {
 
         setCustomerOrder(); //display customer order information
 
-        //inserting into the database
-        db = new DBAdapter(this);
-
         //customer info
         String customerInfo = customer.getName() + "," + customer.getAddress() + "," + customer.getNumber();
 
@@ -118,10 +117,21 @@ public class activity_order_placed extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         String date = dateFormat.format(calendar.getTime());
 
+        //inserting into DB
         //inserting => String customer,String toppings, Integer size, Integer progress
-        db.open();
-        long id = db.insertOrder(customerInfo, toppingsInfo, size, 0, date);
-        db.close();
+        try{
+            db = new DBAdapter(this);
+
+            db.open();
+            long id = db.insertOrder(customerInfo, toppingsInfo, size, 0, date);
+            db.close();
+        }catch (SQLiteException e){
+            Log.w("ACTIVITY_ORDER_PLACED", "Database Error: " + e.toString());
+        }
+        catch (Exception e){
+            Log.w("ACTIVITY_ORDER_PLACED", "Error: " + e.toString());
+        }
+
     }
 
     //METHODS ======================================================================================
